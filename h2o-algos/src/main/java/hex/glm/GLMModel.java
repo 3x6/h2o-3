@@ -1003,6 +1003,20 @@ public class GLMModel extends Model<GLMModel,GLMModel.GLMParameters,GLMModel.GLM
       return res;
     }
 
+    public double[] getNormBetaCoeffs() { // grab normalized coefficients in 1D
+      if (_submodels==null || _submodels.length==0)
+        return null;
+      double[][] coeffs2D = getNormBetaMultinomial(_selected_lambda_idx);
+      double[] coeffs = MemoryManager.malloc8d(coeffs2D.length*coeffs2D[0].length);
+      int counter = 0;
+      for (int row = 0; row < coeffs2D.length; row++) {
+        for (int col = 0; col < coeffs2D[0].length; col++) {
+          coeffs[counter++] = coeffs2D[row][col];
+        }
+      }
+      return coeffs;
+    }
+
     public double[][] get_global_beta_multinomial(){return _global_beta_multinomial;}
 
 

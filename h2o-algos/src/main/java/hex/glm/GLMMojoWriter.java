@@ -33,9 +33,7 @@ public class GLMMojoWriter extends ModelMojoWriter<GLMModel, GLMModel.GLMParamet
       writekv("num_means", model._output._dinfo._numMeans);
       writekv("cat_modes", model.dinfo().catNAFill());
     }
-
-    writekv("beta", model.beta_internal());
-
+    writekv("beta", model._output.getNormBetaCoeffs()); // write out standardized coefficient instead
     writekv("family", model._parms._family);
     writekv("link", model._parms._link);
 
